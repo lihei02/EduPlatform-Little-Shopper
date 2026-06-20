@@ -116,11 +116,6 @@ export default function App() {
     } catch (_) {}
   };
 
-  // Play completion fanfare whenever success screen appears
-  useEffect(() => {
-    if (screen === 'success') play('completion');
-  }, [screen]);
-
   useEffect(() => {
     const el = document.createElement('style');
     el.textContent = EXTRA_CSS;
@@ -172,6 +167,11 @@ export default function App() {
     try { return JSON.parse(localStorage.getItem('ts_sessions') || '[]'); } catch { return []; }
   });
   const [sessStart, setSessStart] = useState(null);
+
+  // Play completion fanfare whenever success screen appears
+  useEffect(() => {
+    if (screen === 'success') play('completion');
+  }, [screen]);
 
   // ── Derived values (re-computed every render)
   const T           = STR[lang] || STR.zhHant;
