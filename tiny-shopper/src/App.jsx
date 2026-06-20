@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { STR } from './strings';
 
-const CHARS = ['/uploads/Character_1.png', '/uploads/Character_2.png'];
+const BASE = import.meta.env.BASE_URL;
+const u = (path) => `${BASE}uploads/${path}`;
+const CHARS = [u('Character_1.png'), u('Character_2.png')];
 
 const CheckBadge = () => (
   <div style={{position:'absolute',top:-7,right:-6,zIndex:2,width:22,height:22,borderRadius:'50%',background:'#7FE0A8',border:'2.5px solid #fff',display:'flex',alignItems:'center',justifyContent:'center',boxShadow:'0 2px 5px rgba(74,59,50,.2)'}}>
@@ -72,7 +74,7 @@ export default function App() {
         {screen === 'home' && (
           <div style={{width:390,height:810,borderRadius:36,overflow:'hidden',position:'relative',background:'#FFF6E6',boxShadow:'0 16px 44px rgba(74,50,50,.18)'}}>
             <div style={{position:'absolute',top:0,left:0,right:0,height:430,background:'linear-gradient(#BFE3F0 0%,#E3F1E6 60%,#FFF6E6 100%)',overflow:'hidden'}}>
-              <img src="/uploads/Store%20Exterior.png" alt="store" style={{position:'absolute',left:'50%',top:197,transform:'translate(-50%,-50%)',width:589,height:386,filter:'drop-shadow(0 10px 18px rgba(74,59,50,.18))'}} />
+              <img src={u("Store%20Exterior.png")} alt="store" style={{position:'absolute',left:'50%',top:197,transform:'translate(-50%,-50%)',width:589,height:386,filter:'drop-shadow(0 10px 18px rgba(74,59,50,.18))'}} />
               <div style={{position:'absolute',left:0,right:0,bottom:0,height:70,background:'linear-gradient(transparent,#FFF6E6)'}}/>
             </div>
             <div style={{position:'absolute',left:24,right:24,bottom:30,background:'#fff',border:'5px solid #fff',borderRadius:30,boxShadow:'0 14px 30px rgba(74,59,50,.18)',padding:'12px 24px 24px',textAlign:'center'}}>
@@ -136,7 +138,7 @@ export default function App() {
         {screen === 'mission' && (
           <div style={{width:390,height:810,borderRadius:36,overflow:'hidden',position:'relative',background:'#FFF6E6',boxShadow:'0 16px 44px rgba(74,59,50,.2)'}}>
             <div style={{position:'absolute',top:0,left:0,right:0,height:540,overflow:'hidden',background:'#fff'}}>
-              <img src="/uploads/Store%20Interior.png" alt="store interior" style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'center 28%',filter:'blur(1.5px)'}} />
+              <img src={u("Store%20Interior.png")} alt="store interior" style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'center 28%',filter:'blur(1.5px)'}} />
               <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,rgba(255,246,230,.05),rgba(255,246,230,.5))'}}/>
             </div>
             <Back onClick={() => go('home')} />
@@ -154,11 +156,11 @@ export default function App() {
               </div>
               <div style={{display:'flex',gap:5,marginTop:10}}>
                 {[
-                  {img:'/uploads/1.2_%E6%A9%99%E6%B1%81.png', name:T.itOrange, bg:'#F4FAFD'},
-                  {img:'/uploads/2.1_%E8%96%AF%E7%89%87.png', name:T.itChips, bg:'#FDF7EA'},
-                  {img:'/uploads/3.1_%E6%A3%92%E6%A3%92%E7%B3%96.png', name:T.itLolli, bg:'#F8F1FC'},
-                  {img:'/uploads/4.2_%E9%9B%AA%E6%A2%9D.png', name:T.itIcepop, bg:'#EFF8FA'},
-                  {img:'/uploads/5.1_%E7%86%B1%E7%8B%97.png', name:T.itHotdog, bg:'#FCEFE7'},
+                  {img:u('1.2_%E6%A9%99%E6%B1%81.png'), name:T.itOrange, bg:'#F4FAFD'},
+                  {img:u('2.1_%E8%96%AF%E7%89%87.png'), name:T.itChips, bg:'#FDF7EA'},
+                  {img:u('3.1_%E6%A3%92%E6%A3%92%E7%B3%96.png'), name:T.itLolli, bg:'#F8F1FC'},
+                  {img:u('4.2_%E9%9B%AA%E6%A2%9D.png'), name:T.itIcepop, bg:'#EFF8FA'},
+                  {img:u('5.1_%E7%86%B1%E7%8B%97.png'), name:T.itHotdog, bg:'#FCEFE7'},
                 ].map(({img,name,bg}) => (
                   <div key={img} style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center',gap:5,background:bg,border:'2px solid #fff',borderRadius:14,padding:'9px 3px 8px',boxShadow:'0 3px 8px rgba(74,59,50,.1)'}}>
                     <div style={{width:40,height:40,display:'flex',alignItems:'center',justifyContent:'center'}}><img src={img} style={{maxWidth:'100%',maxHeight:'100%',objectFit:'contain'}} alt="" /></div>
@@ -198,11 +200,11 @@ export default function App() {
               <span style={{flexShrink:0,maxWidth:48,fontFamily:"'Noto Sans TC','Noto Sans SC'",fontWeight:900,fontSize:12,color:'#FF6F52',lineHeight:1.05,textAlign:'center'}}>{T.listToBuy}</span>
               <div style={{flex:1,display:'flex',gap:5,minWidth:0}}>
                 {[
-                  {img:'/uploads/1.2_%E6%A9%99%E6%B1%81.png', bg:'#E3F3FA', checked:true, border:''},
-                  {img:'/uploads/2.1_%E8%96%AF%E7%89%87.png', bg:'#FFF3D6', checked:false, border:'#E9D6A8'},
-                  {img:'/uploads/3.1_%E6%A3%92%E6%A3%92%E7%B3%96.png', bg:'#F4EAFB', checked:false, border:'#D9C2E8'},
-                  {img:'/uploads/4.2_%E9%9B%AA%E6%A2%9D.png', bg:'#E7F4F7', checked:false, border:'#BBD9E2'},
-                  {img:'/uploads/5.1_%E7%86%B1%E7%8B%97.png', bg:'#FDECE2', checked:false, border:'#EEC4AC'},
+                  {img:u('1.2_%E6%A9%99%E6%B1%81.png'), bg:'#E3F3FA', checked:true, border:''},
+                  {img:u('2.1_%E8%96%AF%E7%89%87.png'), bg:'#FFF3D6', checked:false, border:'#E9D6A8'},
+                  {img:u('3.1_%E6%A3%92%E6%A3%92%E7%B3%96.png'), bg:'#F4EAFB', checked:false, border:'#D9C2E8'},
+                  {img:u('4.2_%E9%9B%AA%E6%A2%9D.png'), bg:'#E7F4F7', checked:false, border:'#BBD9E2'},
+                  {img:u('5.1_%E7%86%B1%E7%8B%97.png'), bg:'#FDECE2', checked:false, border:'#EEC4AC'},
                 ].map(({img,bg,checked,border},i) => (
                   <div key={i} style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',gap:3,background:bg,borderRadius:11,padding:'5px 4px',minWidth:0}}>
                     <div style={{flexShrink:0,width:24,height:24,borderRadius:7,background:'#fff',display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
@@ -219,35 +221,35 @@ export default function App() {
             {/* scrollable zones */}
             <div style={{position:'absolute',top:150,left:0,right:0,bottom:96,overflowY:'auto',padding:'6px 16px 16px',display:'flex',flexDirection:'column',gap:14}}>
               {[
-                {bg:'#E3F3FA',icon:'/uploads/1_%E9%A3%B2%E6%96%99%E5%8D%80.png',label:T.zDrinks,color:'#2d6f8c',items:[
-                  {img:'/uploads/1.1_%E7%A4%A6%E6%B3%89%E6%B0%B4.png',name:T.pWater,price:'$10'},
-                  {img:'/uploads/1.2_%E6%A9%99%E6%B1%81.png',name:T.pOrange,price:'$15',mission:true},
-                  {img:'/uploads/1.3_%E7%89%9B%E5%A5%B6.png',name:T.pMilk,price:'$12'},
-                  {img:'/uploads/1.4_%E6%9E%9C%E6%B1%81%E7%9B%92.png',name:T.pJuiceBox,price:'$8'},
+                {bg:'#E3F3FA',icon:u('1_%E9%A3%B2%E6%96%99%E5%8D%80.png'),label:T.zDrinks,color:'#2d6f8c',items:[
+                  {img:u('1.1_%E7%A4%A6%E6%B3%89%E6%B0%B4.png'),name:T.pWater,price:'$10'},
+                  {img:u('1.2_%E6%A9%99%E6%B1%81.png'),name:T.pOrange,price:'$15',mission:true},
+                  {img:u('1.3_%E7%89%9B%E5%A5%B6.png'),name:T.pMilk,price:'$12'},
+                  {img:u('1.4_%E6%9E%9C%E6%B1%81%E7%9B%92.png'),name:T.pJuiceBox,price:'$8'},
                 ]},
-                {bg:'#FFF3D6',icon:'/uploads/2_%E9%9B%B6%E9%A3%9F%E5%8D%80.png',label:T.zSnacks,color:'#7a5a14',items:[
-                  {img:'/uploads/2.1_%E8%96%AF%E7%89%87.png',name:T.pChips,price:'$20',mission:true},
-                  {img:'/uploads/2.2_%E9%A4%85%E4%B9%BE.png',name:T.pBiscuit,price:'$18'},
-                  {img:'/uploads/2.3_%E7%88%86%E7%B1%B3%E8%8A%B1.png',name:T.pPopcorn,price:'$25'},
-                  {img:'/uploads/2.4_%E7%99%BE%E5%8A%9B%E6%BB%8B.png',name:T.pPretzel,price:'$15'},
+                {bg:'#FFF3D6',icon:u('2_%E9%9B%B6%E9%A3%9F%E5%8D%80.png'),label:T.zSnacks,color:'#7a5a14',items:[
+                  {img:u('2.1_%E8%96%AF%E7%89%87.png'),name:T.pChips,price:'$20',mission:true},
+                  {img:u('2.2_%E9%A4%85%E4%B9%BE.png'),name:T.pBiscuit,price:'$18'},
+                  {img:u('2.3_%E7%88%86%E7%B1%B3%E8%8A%B1.png'),name:T.pPopcorn,price:'$25'},
+                  {img:u('2.4_%E7%99%BE%E5%8A%9B%E6%BB%8B.png'),name:T.pPretzel,price:'$15'},
                 ]},
-                {bg:'#F4EAFB',icon:'/uploads/3_%E7%B3%96%E6%9E%9C%E5%8D%80.png',label:T.zCandy,color:'#5e3d7a',items:[
-                  {img:'/uploads/3.1_%E6%A3%92%E6%A3%92%E7%B3%96.png',name:T.pLolli,price:'$5'},
-                  {img:'/uploads/3.2_%E6%B0%B4%E6%9E%9C%E7%B3%96.png',name:T.pFruitCandy,price:'$12'},
-                  {img:'/uploads/3.3_%E8%BB%9F%E7%B3%96.png',name:T.pGummy,price:'$20'},
-                  {img:'/uploads/3.4_%E5%B7%A7%E5%85%8B%E5%8A%9B.png',name:T.pChoco,price:'$25'},
+                {bg:'#F4EAFB',icon:u('3_%E7%B3%96%E6%9E%9C%E5%8D%80.png'),label:T.zCandy,color:'#5e3d7a',items:[
+                  {img:u('3.1_%E6%A3%92%E6%A3%92%E7%B3%96.png'),name:T.pLolli,price:'$5'},
+                  {img:u('3.2_%E6%B0%B4%E6%9E%9C%E7%B3%96.png'),name:T.pFruitCandy,price:'$12'},
+                  {img:u('3.3_%E8%BB%9F%E7%B3%96.png'),name:T.pGummy,price:'$20'},
+                  {img:u('3.4_%E5%B7%A7%E5%85%8B%E5%8A%9B.png'),name:T.pChoco,price:'$25'},
                 ]},
-                {bg:'#E9F6F9',icon:'/uploads/4_%E5%86%B7%E5%87%8D%E5%8D%80.png',label:T.zFrozen,color:'#3a7d92',items:[
-                  {img:'/uploads/4.1_%E9%9B%AA%E7%B3%95%E6%9D%AF.png',name:T.pIceCup,price:'$22'},
-                  {img:'/uploads/4.2_%E9%9B%AA%E6%A2%9D.png',name:T.pIcepop,price:'$10'},
-                  {img:'/uploads/4.3_%E5%86%B7%E5%87%8D%E8%96%84%E9%A4%85.png',name:T.pFrozenPizza,price:'$35'},
-                  {img:'/uploads/4.4_%E5%86%B7%E5%87%8D%E9%BB%9E%E5%BF%83.png',name:T.pFrozenDim,price:'$30'},
+                {bg:'#E9F6F9',icon:u('4_%E5%86%B7%E5%87%8D%E5%8D%80.png'),label:T.zFrozen,color:'#3a7d92',items:[
+                  {img:u('4.1_%E9%9B%AA%E7%B3%95%E6%9D%AF.png'),name:T.pIceCup,price:'$22'},
+                  {img:u('4.2_%E9%9B%AA%E6%A2%9D.png'),name:T.pIcepop,price:'$10'},
+                  {img:u('4.3_%E5%86%B7%E5%87%8D%E8%96%84%E9%A4%85.png'),name:T.pFrozenPizza,price:'$35'},
+                  {img:u('4.4_%E5%86%B7%E5%87%8D%E9%BB%9E%E5%BF%83.png'),name:T.pFrozenDim,price:'$30'},
                 ]},
-                {bg:'#FFEDE2',icon:'/uploads/5_%E7%86%B1%E9%A3%9F%E5%8D%80.png',label:T.zHot,color:'#c2461f',items:[
-                  {img:'/uploads/5.1_%E7%86%B1%E7%8B%97.png',name:T.pHotdog,price:'$25'},
-                  {img:'/uploads/5.2_%E5%8C%85%E9%BB%9E.png',name:T.pBun,price:'$12'},
-                  {img:'/uploads/5.3_%E9%97%9C%E6%9D%B1%E7%85%AE.png',name:T.pOden,price:'$30'},
-                  {img:'/uploads/5.4_%E7%82%B8%E9%9B%9E%E5%A1%8A.png',name:T.pNuggets,price:'$28'},
+                {bg:'#FFEDE2',icon:u('5_%E7%86%B1%E9%A3%9F%E5%8D%80.png'),label:T.zHot,color:'#c2461f',items:[
+                  {img:u('5.1_%E7%86%B1%E7%8B%97.png'),name:T.pHotdog,price:'$25'},
+                  {img:u('5.2_%E5%8C%85%E9%BB%9E.png'),name:T.pBun,price:'$12'},
+                  {img:u('5.3_%E9%97%9C%E6%9D%B1%E7%85%AE.png'),name:T.pOden,price:'$30'},
+                  {img:u('5.4_%E7%82%B8%E9%9B%9E%E5%A1%8A.png'),name:T.pNuggets,price:'$28'},
                 ]},
               ].map(zone => (
                 <div key={zone.label} style={{background:zone.bg,border:'2.5px solid #fff',borderRadius:20,padding:'10px 12px 12px',boxShadow:'0 4px 12px rgba(74,59,50,.08)'}}>
@@ -291,11 +293,11 @@ export default function App() {
             {/* 5-item row */}
             <div style={{position:'absolute',top:138,left:18,right:18,display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:7}}>
               {[
-                {img:'/uploads/1.2_%E6%A9%99%E6%B1%81.png',name:T.itOrange,price:'$15',bg:'#EAF4FA'},
-                {img:'/uploads/2.1_%E8%96%AF%E7%89%87.png',name:T.itChips,price:'$20',bg:'#FBF3DE'},
-                {img:'/uploads/3.1_%E6%A3%92%E6%A3%92%E7%B3%96.png',name:T.itLolli,price:'$5',bg:'#F6EEFB'},
-                {img:'/uploads/4.2_%E9%9B%AA%E6%A2%9D.png',name:T.itIcepop,price:'$10',bg:'#EAF7FA'},
-                {img:'/uploads/5.1_%E7%86%B1%E7%8B%97.png',name:T.itHotdog,price:'$25',bg:'#FBEEE6'},
+                {img:u('1.2_%E6%A9%99%E6%B1%81.png'),name:T.itOrange,price:'$15',bg:'#EAF4FA'},
+                {img:u('2.1_%E8%96%AF%E7%89%87.png'),name:T.itChips,price:'$20',bg:'#FBF3DE'},
+                {img:u('3.1_%E6%A3%92%E6%A3%92%E7%B3%96.png'),name:T.itLolli,price:'$5',bg:'#F6EEFB'},
+                {img:u('4.2_%E9%9B%AA%E6%A2%9D.png'),name:T.itIcepop,price:'$10',bg:'#EAF7FA'},
+                {img:u('5.1_%E7%86%B1%E7%8B%97.png'),name:T.itHotdog,price:'$25',bg:'#FBEEE6'},
               ].map(({img,name,price,bg}) => (
                 <div key={img} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:4,background:'#fff',border:'3px solid #fff',borderRadius:16,padding:'9px 4px 8px',boxShadow:'0 5px 12px rgba(74,59,50,.1)'}}>
                   <div style={{width:44,height:44,borderRadius:12,background:bg,display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
@@ -351,7 +353,7 @@ export default function App() {
             <div style={{position:'absolute',top:128,left:0,right:0,height:250,background:'#FFF6E6',padding:'16px 22px'}}>
               <div style={{position:'relative',height:120,borderRadius:22,background:'linear-gradient(#D9B98A,#C49B68)',border:'4px solid #E7CEA6',boxShadow:'inset 0 4px 10px rgba(74,40,10,.18)',display:'flex',alignItems:'center',justifyContent:'center',gap:10}}>
                 <div style={{position:'absolute',top:8,left:14,fontFamily:"'Noto Sans TC','Noto Sans SC','Nunito'",fontSize:10,fontWeight:700,color:'#fff8ec',opacity:.85,letterSpacing:1}}>{T.trayLabel}</div>
-                <img src="/uploads/%24100.png" style={{width:96,height:'auto',transform:'rotate(-5deg)',filter:'drop-shadow(0 4px 8px rgba(74,59,50,.25))'}} alt="$100" />
+                <img src={u("%24100.png")} style={{width:96,height:'auto',transform:'rotate(-5deg)',filter:'drop-shadow(0 4px 8px rgba(74,59,50,.25))'}} alt="$100" />
               </div>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginTop:14}}>
                 <div style={{display:'flex',flexDirection:'column'}}>
@@ -374,7 +376,7 @@ export default function App() {
                 </div>
               </div>
               <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'10px 14px'}}>
-                {[{src:'/uploads/%24100.png',qty:'×2'},{src:'/uploads/%2450.png',qty:'×2'},{src:'/uploads/%2420.png',qty:'×3'},{src:'/uploads/%2410.png',qty:'×4'}].map(({src,qty}) => (
+                {[{src:u('%24100.png'),qty:'×2'},{src:u('%2450.png'),qty:'×2'},{src:u('%2420.png'),qty:'×3'},{src:u('%2410.png'),qty:'×4'}].map(({src,qty}) => (
                   <div key={src} style={{position:'relative',cursor:'pointer'}}>
                     <img src={src} style={{width:'100%',height:'auto',display:'block',filter:'drop-shadow(0 4px 8px rgba(74,59,50,.18))'}} alt="" />
                     <span style={{position:'absolute',top:-5,right:-5,fontFamily:"'Nunito'",fontWeight:900,fontSize:11,color:'#fff',background:'#4A3B32',border:'2px solid #fff',borderRadius:999,padding:'1px 7px'}}>{qty}</span>
@@ -382,7 +384,7 @@ export default function App() {
                 ))}
               </div>
               <div style={{display:'flex',gap:18,marginTop:14,justifyContent:'center'}}>
-                {[{src:'/uploads/%245.png',qty:'×4'},{src:'/uploads/%242.png',qty:'×5'},{src:'/uploads/%241.png',qty:'×5'}].map(({src,qty}) => (
+                {[{src:u('%245.png'),qty:'×4'},{src:u('%242.png'),qty:'×5'},{src:u('%241.png'),qty:'×5'}].map(({src,qty}) => (
                   <div key={src} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:3}}>
                     <img src={src} style={{width:62,height:'auto',display:'block',cursor:'pointer',filter:'drop-shadow(0 4px 8px rgba(74,59,50,.2))'}} alt="" />
                     <span style={{fontFamily:"'Nunito'",fontWeight:800,fontSize:11,color:'#9a8a78'}}>{qty}</span>
@@ -406,16 +408,16 @@ export default function App() {
               <div key={i} style={{position:'absolute',top:s.top,left:s.left,right:s.right,width:s.w,height:s.w,background:s.color,borderRadius:s.br,animation:`twinkle ${2.4+i*.3}s ease-in-out infinite`}}/>
             ))}
             <div style={{position:'absolute',top:70,left:0,right:0,display:'flex',justifyContent:'center'}}>
-              <img src="/uploads/Great%20Job.png" alt="Great Job!" style={{width:300,height:'auto',filter:'drop-shadow(0 12px 20px rgba(74,59,50,.22))',animation:'bob 3s ease-in-out infinite'}} />
+              <img src={u("Great%20Job.png")} alt="Great Job!" style={{width:300,height:'auto',filter:'drop-shadow(0 12px 20px rgba(74,59,50,.22))',animation:'bob 3s ease-in-out infinite'}} />
             </div>
             <div style={{position:'absolute',top:392,left:24,right:24,background:'#fff',border:'5px solid #fff',borderRadius:24,padding:18,boxShadow:'0 12px 26px rgba(74,59,50,.18)'}}>
               <div style={{display:'flex',gap:8,justifyContent:'center',marginBottom:12}}>
                 {[
-                  {img:'/uploads/1.2_%E6%A9%99%E6%B1%81.png',bg:'#EAF4FA'},
-                  {img:'/uploads/2.1_%E8%96%AF%E7%89%87.png',bg:'#FBF3DE'},
-                  {img:'/uploads/3.1_%E6%A3%92%E6%A3%92%E7%B3%96.png',bg:'#F6EEFB'},
-                  {img:'/uploads/4.2_%E9%9B%AA%E6%A2%9D.png',bg:'#EAF7FA'},
-                  {img:'/uploads/5.1_%E7%86%B1%E7%8B%97.png',bg:'#FBEEE6'},
+                  {img:u('1.2_%E6%A9%99%E6%B1%81.png'),bg:'#EAF4FA'},
+                  {img:u('2.1_%E8%96%AF%E7%89%87.png'),bg:'#FBF3DE'},
+                  {img:u('3.1_%E6%A3%92%E6%A3%92%E7%B3%96.png'),bg:'#F6EEFB'},
+                  {img:u('4.2_%E9%9B%AA%E6%A2%9D.png'),bg:'#EAF7FA'},
+                  {img:u('5.1_%E7%86%B1%E7%8B%97.png'),bg:'#FBEEE6'},
                 ].map(({img,bg}) => (
                   <div key={img} style={{width:46,height:46,borderRadius:12,background:bg,border:'2.5px solid #fff',display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
                     <img src={img} style={{width:38,height:38,objectFit:'contain'}} alt="" />
