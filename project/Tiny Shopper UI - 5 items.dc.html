@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&amp;family=Noto+Sans+SC:wght@400;500;700;900&amp;family=Nunito:ital,wght@0,400;0,700;0,800;0,900;1,900&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  @keyframes floaty{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+  @keyframes twinkle{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+  @keyframes glowpulse{0%,100%{box-shadow:0 0 0 0 rgba(127,224,168,0)}50%{box-shadow:0 0 0 9px rgba(127,224,168,.4)}}
+</style>
+</helmet>
+
+<div style="position:fixed;inset:0;background:#e7e5df;font-family:'Noto Sans TC','Noto Sans SC','Nunito',sans-serif;color:#4A3B32;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+
+  <!-- ============ PHONE ============ -->
+  <div ref="{{ phoneRef }}" style="position:relative;width:390px;height:810px;flex:none;transform-origin:center center;">
+
+    <!-- ===== HOME B — Welcome panel ===== -->
+    <div style="position:absolute;top:0;left:0;width:390px;height:810px;display:{{ visHomeB }};">
+      <div style="width:390px;height:810px;border-radius:36px;overflow:hidden;position:relative;background:#FFF6E6;box-shadow:0 16px 44px rgba(74,50,50,.18);">
+        <div style="position:absolute;top:0;left:0;right:0;height:430px;background:linear-gradient(#BFE3F0 0%,#E3F1E6 60%,#FFF6E6 100%);overflow:hidden;">
+          <img src="uploads/Store%20Exterior.png" alt="store exterior" style="position: absolute; left: 50%; top: 197px; transform: translate(-50%,-50%); width: 589px; height: 386px; filter: drop-shadow(0 10px 18px rgba(74,59,50,.18))">
+          <div style="position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(transparent,#FFF6E6);"></div>
+        </div>
+        <div style="position:absolute;left:24px;right:24px;bottom:30px;background:#fff;border:5px solid #fff;border-radius:30px;box-shadow:0 14px 30px rgba(74,59,50,.18);padding:12px 24px 24px;text-align:center;">
+          <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px;">
+            <div onClick="{{ prevChar }}" style="cursor:pointer;flex:none;width:42px;height:42px;border-radius:50%;border:2.5px solid #fff;background:#FFEDE6;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(74,59,50,.16);">
+              <div style="width:11px;height:11px;border-left:3.5px solid #FF6F52;border-bottom:3.5px solid #FF6F52;transform:rotate(45deg);margin-left:4px;"></div>
+            </div>
+            <div style="width:107px;height:143px;background-position:center;background-repeat:no-repeat;background-size:contain;filter:drop-shadow(0 6px 10px rgba(74,59,50,.18));background-image:{{ charBgImg }};"></div>
+            <div onClick="{{ nextChar }}" style="cursor:pointer;flex:none;width:42px;height:42px;border-radius:50%;border:2.5px solid #fff;background:#FFEDE6;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(74,59,50,.16);">
+              <div style="width:11px;height:11px;border-right:3.5px solid #FF6F52;border-top:3.5px solid #FF6F52;transform:rotate(45deg);margin-right:4px;"></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:{{ dot0 }};"></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:{{ dot1 }};"></div>
+          </div>
+          <div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:22px;color:#4A3B32;">{{ homeGreeting }}</div>
+          <div style="margin-top:20px;display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div onClick="{{ goMission }}" style="cursor:pointer;animation:bob 2.4s ease-in-out infinite;width:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(#FF8468,#FF6F52);color:#fff;border:4px solid #fff;border-radius:24px;padding:17px 0;box-shadow:0 7px 0 #E2512F,0 14px 22px rgba(74,59,50,.26);">
+              <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:24px;letter-spacing:2px;">{{ startShopping }}</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:16px;">
+            <div onClick="{{ openLang }}" style="cursor:pointer;flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border:2.5px solid #E8E2D8;border-radius:18px;padding:11px 0;">
+              <div style="width:14px;height:14px;border-radius:50%;border:3px solid #9a8a78;"></div>
+              <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:700;font-size:14px;color:#6f6256;">{{ settings }}</span>
+            </div>
+            <div onClick="{{ goParent }}" style="cursor:pointer;flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border:2.5px solid #E8E2D8;border-radius:18px;padding:11px 0;">
+              <div style="width:13px;height:15px;background:#C9A6E0;border-radius:4px 4px 7px 7px;"></div>
+              <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:700;font-size:14px;color:#6f6256;">{{ parentShort }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- language picker overlay -->
+        <div style="position:absolute;inset:0;background:rgba(74,59,50,.45);display:{{ langOpenDisp }};align-items:center;justify-content:center;padding:0 30px;backdrop-filter:blur(2px);">
+          <div style="width:100%;background:#fff;border:5px solid #fff;border-radius:28px;box-shadow:0 18px 40px rgba(74,59,50,.3);padding:24px 22px 22px;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px;">
+              <div style="width:16px;height:16px;border-radius:50%;border:3px solid #FF6F52;"></div>
+              <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:20px;color:#4A3B32;">{{ chooseLang }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div onClick="{{ setLangZhHant }}" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;border:3px solid {{ optHantBorder }};background:{{ optHantBg }};border-radius:18px;padding:14px 18px;">
+                <span style="font-family:'Noto Sans TC';font-weight:800;font-size:18px;color:#4A3B32;">繁體中文</span>
+                <div style="width:22px;height:22px;border-radius:50%;background:{{ optHantDot }};display:flex;align-items:center;justify-content:center;"><div style="width:8px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg);margin-bottom:2px;display:{{ optHantCheck }};"></div></div>
+              </div>
+              <div onClick="{{ setLangZhHans }}" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;border:3px solid {{ optHansBorder }};background:{{ optHansBg }};border-radius:18px;padding:14px 18px;">
+                <span style="font-family:'Noto Sans SC';font-weight:800;font-size:18px;color:#4A3B32;">简体中文</span>
+                <div style="width:22px;height:22px;border-radius:50%;background:{{ optHansDot }};display:flex;align-items:center;justify-content:center;"><div style="width:8px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg);margin-bottom:2px;display:{{ optHansCheck }};"></div></div>
+              </div>
+              <div onClick="{{ setLangEn }}" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;border:3px solid {{ optEnBorder }};background:{{ optEnBg }};border-radius:18px;padding:14px 18px;">
+                <span style="font-family:'Nunito';font-weight:800;font-size:18px;color:#4A3B32;">English</span>
+                <div style="width:22px;height:22px;border-radius:50%;background:{{ optEnDot }};display:flex;align-items:center;justify-content:center;"><div style="width:8px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg);margin-bottom:2px;display:{{ optEnCheck }};"></div></div>
+              </div>
+            </div>
+            <div onClick="{{ closeLang }}" style="cursor:pointer;margin-top:16px;text-align:center;font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:800;font-size:14px;color:#9a8a78;padding:8px 0;">✕</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SCREEN 2 — MISSION ===== -->
+    <div style="position:absolute;top:0;left:0;width:390px;height:810px;display:{{ visMission }};">
+      <div style="width:390px;height:810px;border-radius:36px;overflow:hidden;position:relative;background:#FFF6E6;box-shadow:0 16px 44px rgba(74,59,50,.2);">
+        <div style="position:absolute;top:0;left:0;right:0;height:540px;overflow:hidden;background:#fff;">
+          <img src="uploads/Store%20Interior.png" alt="store interior" style="width:100%;height:100%;object-fit:cover;object-position:center 28%;filter:blur(1.5px);">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,246,230,.05),rgba(255,246,230,.5));"></div>
+        </div>
+        <div onClick="{{ goHome }}" style="position:absolute;top:22px;left:18px;width:44px;height:44px;border-radius:50%;border:2.5px solid #fff;background:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 10px rgba(74,59,50,.14);">
+          <div style="width:12px;height:12px;border-left:3px solid #6f6256;border-bottom:3px solid #6f6256;transform:rotate(45deg);margin-left:4px;"></div>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:34px 34px 0 0;box-shadow:0 -10px 30px rgba(74,59,50,.16);padding:30px 26px 30px;">
+          <div style="display:flex;align-items:center;gap:18px;">
+            <div style="flex:none;width:96px;height:96px;border-radius:50%;border:4px solid #fff;background:#FDF3D8 center -2px/118% no-repeat;background-image:{{ charBgImg }};box-shadow:0 8px 16px rgba(74,59,50,.16);"></div>
+            <div>
+              <div style="font-family:'Nunito';font-weight:900;font-size:12px;letter-spacing:2px;color:#FF6F52;text-transform:uppercase;">{{ missionLabel }}</div>
+              <div style="font-family: 'Noto Sans TC','Noto Sans SC'; font-weight: 900; font-size: 22px; line-height: 1.3; color: #4A3B32; margin-top: 6px">{{ missionTitle }}</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:14px;">
+            <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:16px;color:#4A3B32;">{{ shoppingList }}</span>
+            <span style="font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:900;font-size:12px;color:#fff;background:#FF8A52;border-radius:999px;padding:2px 10px;">{{ missionCount }}</span>
+          </div>
+          <div style="display:flex;gap:5px;margin-top:10px;">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;background:#F4FAFD;border:2px solid #fff;border-radius:14px;padding:9px 3px 8px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;"><img src="uploads/1.2_橙汁.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:12px;color:#4A3B32;text-align:center;line-height:1.1;">{{ itOrange }}</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;background:#FDF7EA;border:2px solid #fff;border-radius:14px;padding:9px 3px 8px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;"><img src="uploads/2.1_薯片.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:12px;color:#4A3B32;text-align:center;line-height:1.1;">{{ itChips }}</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;background:#F8F1FC;border:2px solid #fff;border-radius:14px;padding:9px 3px 8px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;"><img src="uploads/3.1_棒棒糖.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:12px;color:#4A3B32;text-align:center;line-height:1.1;">{{ itLolli }}</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;background:#EFF8FA;border:2px solid #fff;border-radius:14px;padding:9px 3px 8px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;"><img src="uploads/4.2_雪條.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:12px;color:#4A3B32;text-align:center;line-height:1.1;">{{ itIcepop }}</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;background:#FCEFE7;border:2px solid #fff;border-radius:14px;padding:9px 3px 8px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;"><img src="uploads/5.1_熱狗.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:12px;color:#4A3B32;text-align:center;line-height:1.1;">{{ itHotdog }}</span></div>
+          </div>
+          <div onClick="{{ goNav }}" style="cursor:pointer;margin-top:24px;animation:bob 2.6s ease-in-out infinite;display:flex;align-items:center;justify-content:center;background:linear-gradient(#FF8468,#FF6F52);color:#fff;border:4px solid #fff;border-radius:26px;padding:18px 0;box-shadow:0 8px 0 #E2512F,0 15px 22px rgba(74,59,50,.24);">
+            <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:24px;letter-spacing:2px;">{{ go }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SCREEN 3 — NAVIGATION ===== -->
+    <div style="position:absolute;top:0;left:0;width:390px;height:810px;display:{{ visNav }};">
+      <div style="width:390px;height:810px;border-radius:36px;overflow:hidden;position:relative;background:linear-gradient(#EAF6FB,#FFF6E6 60%);box-shadow:0 16px 44px rgba(74,59,50,.2);">
+        <div style="position:absolute;top:78px;left:18px;right:18px;z-index:5;background:#fff;border:2.5px solid #fff;border-radius:18px;padding:7px 9px;box-shadow:0 6px 16px rgba(74,59,50,.16);display:flex;align-items:center;gap:7px;">
+          <span style="flex:none;max-width:48px;font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:12px;color:#FF6F52;line-height:1.05;text-align:center;">{{ listToBuy }}</span>
+          <div style="flex:1;display:flex;gap:5px;min-width:0;">
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:3px;background:#E3F3FA;border-radius:11px;padding:5px 4px;min-width:0;">
+              <div style="flex:none;width:24px;height:24px;border-radius:7px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/1.2_橙汁.png" style="width:20px;height:20px;object-fit:contain;"></div>
+              <div style="flex:none;width:15px;height:15px;border-radius:50%;background:#7FE0A8;display:flex;align-items:center;justify-content:center;"><div style="width:6px;height:3px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg);margin-bottom:1px;"></div></div>
+            </div>
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:3px;background:#FFF3D6;border-radius:11px;padding:5px 4px;min-width:0;">
+              <div style="flex:none;width:24px;height:24px;border-radius:7px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/2.1_薯片.png" style="width:20px;height:20px;object-fit:contain;"></div>
+              <div style="flex:none;width:15px;height:15px;border-radius:50%;border:2px solid #E9D6A8;"></div>
+            </div>
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:3px;background:#F4EAFB;border-radius:11px;padding:5px 4px;min-width:0;">
+              <div style="flex:none;width:24px;height:24px;border-radius:7px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/3.1_棒棒糖.png" style="width:20px;height:20px;object-fit:contain;"></div>
+              <div style="flex:none;width:15px;height:15px;border-radius:50%;border:2px solid #D9C2E8;"></div>
+            </div>
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:3px;background:#E7F4F7;border-radius:11px;padding:5px 4px;min-width:0;">
+              <div style="flex:none;width:24px;height:24px;border-radius:7px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/4.2_雪條.png" style="width:20px;height:20px;object-fit:contain;"></div>
+              <div style="flex:none;width:15px;height:15px;border-radius:50%;border:2px solid #BBD9E2;"></div>
+            </div>
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:3px;background:#FDECE2;border-radius:11px;padding:5px 4px;min-width:0;">
+              <div style="flex:none;width:24px;height:24px;border-radius:7px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/5.1_熱狗.png" style="width:20px;height:20px;object-fit:contain;"></div>
+              <div style="flex:none;width:15px;height:15px;border-radius:50%;border:2px solid #EEC4AC;"></div>
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute;top:150px;left:0;right:0;bottom:96px;overflow-y:auto;padding:6px 16px 16px;display:flex;flex-direction:column;gap:14px;">
+
+          <!-- drinks -->
+          <div style="background:#E3F3FA;border:2.5px solid #fff;border-radius:20px;padding:10px 12px 12px;box-shadow:0 4px 12px rgba(74,59,50,.08);">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px;">
+              <div style="width:36px;height:36px;border-radius:10px;background:#fff;box-shadow:0 2px 5px rgba(74,59,50,.12);display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/1_飲料區.png" style="width:32px;height:32px;object-fit:contain;"></div>
+              <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:17px;color:#2d6f8c;">{{ zDrinks }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/1.1_礦泉水.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pWater }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$10</div></div>
+              <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);animation:glowpulse 2.2s ease-in-out infinite;"><div style="position:absolute;top:-7px;right:-6px;z-index:2;width:22px;height:22px;border-radius:50%;background:#7FE0A8;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 5px rgba(74,59,50,.2);"><div style="width:8px;height:4px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg);margin-bottom:2px;"></div></div><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/1.2_橙汁.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pOrange }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$15</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/1.3_牛奶.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pMilk }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$12</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/1.4_果汁盒.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pJuiceBox }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$8</div></div>
+            </div>
+          </div>
+
+          <!-- snacks -->
+          <div style="background:#FFF3D6;border:2.5px solid #fff;border-radius:20px;padding:10px 12px 12px;box-shadow:0 4px 12px rgba(74,59,50,.08);">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px;">
+              <div style="width:36px;height:36px;border-radius:10px;background:#fff;box-shadow:0 2px 5px rgba(74,59,50,.12);display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/2_零食區.png" style="width:32px;height:32px;object-fit:contain;"></div>
+              <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:17px;color:#7a5a14;">{{ zSnacks }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+              <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);animation:glowpulse 2.2s ease-in-out infinite;"><div style="position:absolute;top:-7px;right:-6px;z-index:2;width:22px;height:22px;border-radius:50%;background:#7FE0A8;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 5px rgba(74,59,50,.2);"><div style="width:8px;height:4px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg);margin-bottom:2px;"></div></div><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/2.1_薯片.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pChips }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$20</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/2.2_餅乾.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pBiscuit }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$18</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/2.3_爆米花.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pPopcorn }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$25</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/2.4_百力滋.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pPretzel }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$15</div></div>
+            </div>
+          </div>
+
+          <!-- candy -->
+          <div style="background:#F4EAFB;border:2.5px solid #fff;border-radius:20px;padding:10px 12px 12px;box-shadow:0 4px 12px rgba(74,59,50,.08);">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px;">
+              <div style="width:36px;height:36px;border-radius:10px;background:#fff;box-shadow:0 2px 5px rgba(74,59,50,.12);display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/3_糖果區.png" style="width:32px;height:32px;object-fit:contain;"></div>
+              <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:17px;color:#5e3d7a;">{{ zCandy }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/3.1_棒棒糖.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pLolli }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$5</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/3.2_水果糖.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pFruitCandy }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$12</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/3.3_軟糖.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pGummy }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$20</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/3.4_巧克力.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pChoco }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$25</div></div>
+            </div>
+          </div>
+
+          <!-- frozen -->
+          <div style="background:#E9F6F9;border:2.5px solid #fff;border-radius:20px;padding:10px 12px 12px;box-shadow:0 4px 12px rgba(74,59,50,.08);">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px;">
+              <div style="width:36px;height:36px;border-radius:10px;background:#fff;box-shadow:0 2px 5px rgba(74,59,50,.12);display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/4_冷凍區.png" style="width:32px;height:32px;object-fit:contain;"></div>
+              <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:17px;color:#3a7d92;">{{ zFrozen }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/4.1_雪糕杯.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pIceCup }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$22</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/4.2_雪條.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pIcepop }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$10</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/4.3_冷凍薄餅.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pFrozenPizza }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$35</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/4.4_冷凍點心.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pFrozenDim }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$30</div></div>
+            </div>
+          </div>
+
+          <!-- hot food -->
+          <div style="background:#FFEDE2;border:2.5px solid #fff;border-radius:20px;padding:10px 12px 12px;box-shadow:0 4px 12px rgba(74,59,50,.08);">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px;">
+              <div style="width:36px;height:36px;border-radius:10px;background:#fff;box-shadow:0 2px 5px rgba(74,59,50,.12);display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/5_熱食區.png" style="width:32px;height:32px;object-fit:contain;"></div>
+              <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:17px;color:#c2461f;">{{ zHot }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/5.1_熱狗.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pHotdog }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$25</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/5.2_包點.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pBun }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$12</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/5.3_關東煮.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pOden }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$30</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:13px;padding:7px 3px 6px;box-shadow:0 3px 8px rgba(74,59,50,.1);"><div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;"><img src="uploads/5.4_炸雞塊.png" style="max-width:100%;max-height:100%;object-fit:contain;"></div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:11px;color:#4A3B32;text-align:center;line-height:1.1;">{{ pNuggets }}</div><div style="margin-top:auto;background:#FFC94D;color:#4A3B32;font-family:'Nunito';font-weight:900;font-size:15px;padding:0 8px;border-radius:999px;">$28</div></div>
+            </div>
+          </div>
+
+        </div>
+        <div style="position:absolute;top:24px;left:18px;right:18px;display:flex;align-items:center;gap:10px;">
+          <div onClick="{{ goHome }}" style="flex:none;width:44px;height:44px;border-radius:50%;border:2.5px solid #c9bda8;background:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+            <div style="width:12px;height:12px;border-left:3px solid #6f6256;border-bottom:3px solid #6f6256;transform:rotate(45deg);margin-left:4px;"></div>
+          </div>
+          <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:#fff;border:2.5px solid #fff;border-radius:999px;padding:9px 14px;box-shadow:0 5px 12px rgba(74,59,50,.14);">
+            <div style="width:14px;height:14px;border-radius:50%;background:#FF6F52;"></div>
+            <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:14px;color:#4A3B32;white-space:nowrap;">{{ shoppingList }}</span>
+          </div>
+          <div style="flex:none;position:relative;width:48px;height:48px;border-radius:16px;background:#fff;border:3px solid #fff;box-shadow:0 5px 12px rgba(74,59,50,.14);display:flex;align-items:center;justify-content:center;">
+            <div style="width:22px;height:16px;border-radius:0 0 7px 7px;background:#FF8A52;position:relative;"><div style="position:absolute;left:50%;top:-7px;transform:translateX(-50%);width:14px;height:9px;border:3px solid #FF8A52;border-bottom:none;border-radius:8px 8px 0 0;"></div></div>
+            <div style="position:absolute;top:-7px;right:-7px;width:24px;height:24px;border-radius:50%;background:#FF6F52;border:2.5px solid #fff;color:#fff;font-family:'Nunito';font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;">1</div>
+          </div>
+        </div>
+
+        <div style="position:absolute;left:0;right:0;bottom:30px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;">
+          <div style="width:54px;height:54px;border-radius:50%;background:#fff;border:3px solid #fff;box-shadow:0 6px 14px rgba(74,59,50,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+            <div style="width:14px;height:14px;border-left:4px solid #FF6F52;border-bottom:4px solid #FF6F52;transform:rotate(45deg);margin-left:4px;"></div>
+          </div>
+          <div onClick="{{ goCart }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;background:linear-gradient(#7FE0A8,#5FCB8E);color:#225c40;border:4px solid #fff;border-radius:22px;padding:13px 30px;box-shadow:0 6px 0 #3FA56E,0 12px 18px rgba(74,59,50,.2);">
+            <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:19px;">{{ checkout }}</span>
+          </div>
+          <div style="width:54px;height:54px;border-radius:50%;background:#fff;border:3px solid #fff;box-shadow:0 6px 14px rgba(74,59,50,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+            <div style="width:14px;height:14px;border-right:4px solid #FF6F52;border-top:4px solid #FF6F52;transform:rotate(45deg);margin-right:4px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SCREEN 4 — CART ===== -->
+    <div style="position:absolute;top:0;left:0;width:390px;height:810px;display:{{ visCart }};">
+      <div style="width:390px;height:810px;border-radius:36px;overflow:hidden;position:relative;background:#FFF6E6;box-shadow:0 16px 44px rgba(74,59,50,.2);">
+        <div style="position:absolute;top:0;left:0;right:0;height:128px;background:linear-gradient(#BFE6C5,#A8D9B2);display:flex;align-items:center;gap:14px;padding:0 22px;">
+          <div style="flex:none;width:72px;height:72px;border-radius:50%;border:3px solid #fff;background:#E6F4EA center -2px/118% no-repeat;background-image:{{ charBgImg }};box-shadow:0 5px 12px rgba(74,59,50,.16);"></div>
+          <div>
+            <div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:22px;color:#2f5a3c;">{{ cartTitle }}</div>
+          </div>
+        </div>
+        <div style="position:absolute;top:138px;left:18px;right:18px;display:grid;grid-template-columns:repeat(5,1fr);gap:7px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border:3px solid #fff;border-radius:16px;padding:9px 4px 8px;box-shadow:0 5px 12px rgba(74,59,50,.1);">
+            <div style="width:44px;height:44px;border-radius:12px;background:#EAF4FA;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/1.2_橙汁.png" style="width:36px;height:36px;object-fit:contain;"></div>
+            <div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:12px;color:#4A3B32;text-align:center;line-height:1.1;">{{ itOrange }}</div>
+            <div style="margin-top:auto;font-family:'Nunito';font-weight:900;font-size:18px;color:#4A3B32;">$15</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border:3px solid #fff;border-radius:16px;padding:9px 4px 8px;box-shadow:0 5px 12px rgba(74,59,50,.1);">
+            <div style="width:44px;height:44px;border-radius:12px;background:#FBF3DE;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/2.1_薯片.png" style="width:36px;height:36px;object-fit:contain;"></div>
+            <div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:12px;color:#4A3B32;text-align:center;line-height:1.1;">{{ itChips }}</div>
+            <div style="margin-top:auto;font-family:'Nunito';font-weight:900;font-size:18px;color:#4A3B32;">$20</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border:3px solid #fff;border-radius:16px;padding:9px 4px 8px;box-shadow:0 5px 12px rgba(74,59,50,.1);">
+            <div style="width:44px;height:44px;border-radius:12px;background:#F6EEFB;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/3.1_棒棒糖.png" style="width:36px;height:36px;object-fit:contain;"></div>
+            <div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:12px;color:#4A3B32;text-align:center;line-height:1.1;">{{ itLolli }}</div>
+            <div style="margin-top:auto;font-family:'Nunito';font-weight:900;font-size:18px;color:#4A3B32;">$5</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border:3px solid #fff;border-radius:16px;padding:9px 4px 8px;box-shadow:0 5px 12px rgba(74,59,50,.1);">
+            <div style="width:44px;height:44px;border-radius:12px;background:#EAF7FA;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/4.2_雪條.png" style="width:36px;height:36px;object-fit:contain;"></div>
+            <div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:12px;color:#4A3B32;text-align:center;line-height:1.1;">{{ itIcepop }}</div>
+            <div style="margin-top:auto;font-family:'Nunito';font-weight:900;font-size:18px;color:#4A3B32;">$10</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border:3px solid #fff;border-radius:16px;padding:9px 4px 8px;box-shadow:0 5px 12px rgba(74,59,50,.1);">
+            <div style="width:44px;height:44px;border-radius:12px;background:#FBEEE6;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/5.1_熱狗.png" style="width:36px;height:36px;object-fit:contain;"></div>
+            <div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:12px;color:#4A3B32;text-align:center;line-height:1.1;">{{ itHotdog }}</div>
+            <div style="margin-top:auto;font-family:'Nunito';font-weight:900;font-size:18px;color:#4A3B32;">$25</div>
+          </div>
+        </div>
+        <div style="position: absolute; bottom: 166px; left: 24px; right: 24px; background: linear-gradient(#EFE9DD,#E2DBCB); border: 4px solid #fff; border-radius: 26px; padding: 16px; box-shadow: 0 14px 30px rgba(74,59,50,.22)">
+          <div style="background:#3a4a3f;border-radius:14px;padding:10px 16px;text-align:right;margin-bottom:12px;box-shadow:inset 0 2px 6px rgba(0,0,0,.3);"><span style="font-family:'Nunito';font-weight:900;font-size:30px;color:#9fe8bd;letter-spacing:1px;">75</span></div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px;">
+            <div style="background:#fff;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#4A3B32;box-shadow:0 3px 0 #cfc6b4;">7</div>
+            <div style="background:#fff;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#4A3B32;box-shadow:0 3px 0 #cfc6b4;">8</div>
+            <div style="background:#fff;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#4A3B32;box-shadow:0 3px 0 #cfc6b4;">9</div>
+            <div style="background:#FFC94D;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#7a5a14;box-shadow:0 3px 0 #E2A52F;">C</div>
+            <div style="background:#fff;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#4A3B32;box-shadow:0 3px 0 #cfc6b4;">4</div>
+            <div style="background:#fff;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#4A3B32;box-shadow:0 3px 0 #cfc6b4;">5</div>
+            <div style="background:#fff;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#4A3B32;box-shadow:0 3px 0 #cfc6b4;">6</div>
+            <div style="background:#C9A6E0;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#fff;box-shadow:0 3px 0 #9F73C0;">−</div>
+            <div style="background:#fff;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#4A3B32;box-shadow:0 3px 0 #cfc6b4;">1</div>
+            <div style="background:#fff;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#4A3B32;box-shadow:0 3px 0 #cfc6b4;">2</div>
+            <div style="background:#fff;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#4A3B32;box-shadow:0 3px 0 #cfc6b4;">3</div>
+            <div style="background:#C9A6E0;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#fff;box-shadow:0 3px 0 #9F73C0;">×</div>
+            <div style="grid-column:span 2;background:#fff;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#4A3B32;box-shadow:0 3px 0 #cfc6b4;">0</div>
+            <div style="background:#fff;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#4A3B32;box-shadow:0 3px 0 #cfc6b4;">.</div>
+            <div style="background:#7FE0A8;border-radius:14px;padding:12px 0;text-align:center;font-family:'Nunito';font-weight:900;font-size:20px;color:#225c40;box-shadow:0 3px 0 #3FA56E;">=</div>
+          </div>
+        </div>
+        <div onClick="{{ goPay }}" style="cursor: pointer; position: absolute; bottom: 58px; left: 24px; right: 24px; display: flex; align-items: center; justify-content: center; background: linear-gradient(#FF8468,#FF6F52); border: 4px solid #fff; border-radius: 22px; padding: 15px 0; box-shadow: 0 6px 0 #E2512F,0 12px 18px rgba(74,59,50,.22)">
+          <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:20px;color:#fff;letter-spacing:2px;">{{ confirmAmount }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SCREEN 5 — PAYMENT ===== -->
+    <div style="position:absolute;top:0;left:0;width:390px;height:810px;display:{{ visPay }};">
+      <div style="width:390px;height:810px;border-radius:36px;overflow:hidden;position:relative;background:#FFF6E6;box-shadow:0 16px 44px rgba(74,59,50,.2);">
+        <div style="position:absolute;top:0;left:0;right:0;height:128px;background:linear-gradient(#FF8468,#FF6F52);padding:16px 22px;color:#fff;">
+          <div style="display:flex;justify-content:space-between;font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:700;font-size:12px;opacity:.92;"><span>{{ itOrange }} {{ unit }}</span><span>$15</span></div>
+          <div style="display:flex;justify-content:space-between;font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:700;font-size:12px;opacity:.92;margin-top:2px;"><span>{{ itChips }} {{ unit }}</span><span>$20</span></div>
+          <div style="display:flex;justify-content:space-between;font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:700;font-size:12px;opacity:.92;margin-top:2px;"><span>{{ itLolli }} {{ unit }}</span><span>$5</span></div>
+          <div style="display:flex;justify-content:space-between;font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:700;font-size:12px;opacity:.92;margin-top:2px;"><span>{{ itIcepop }} {{ unit }}</span><span>$10</span></div>
+          <div style="display:flex;justify-content:space-between;font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:700;font-size:12px;opacity:.92;margin-top:2px;"><span>{{ itHotdog }} {{ unit }}</span><span>$25</span></div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:8px;border-top:2px dashed rgba(255,255,255,.5);padding-top:8px;">
+            <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:18px;">{{ amountDue }}</span>
+            <span style="font-family:'Nunito';font-weight:900;font-size:34px;letter-spacing:1px;">$75</span>
+          </div>
+        </div>
+        <div style="position:absolute;top:128px;left:0;right:0;height:250px;background:#FFF6E6;padding:16px 22px;">
+          <div style="position:relative;height:120px;border-radius:22px;background:linear-gradient(#D9B98A,#C49B68);border:4px solid #E7CEA6;box-shadow:inset 0 4px 10px rgba(74,40,10,.18);display:flex;align-items:center;justify-content:center;gap:10px;">
+            <div style="position:absolute;top:8px;left:14px;font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-size:10px;font-weight:700;color:#fff8ec;opacity:.85;letter-spacing:1px;">{{ trayLabel }}</div>
+            <img src="uploads/$100.png" style="width:96px;height:auto;transform:rotate(-5deg);filter:drop-shadow(0 4px 8px rgba(74,59,50,.25));">
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;">
+            <div style="display:flex;flex-direction:column;">
+              <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:700;font-size:13px;color:#8a7c6c;">{{ paidIn }}</span>
+              <span style="font-family:'Nunito';font-weight:900;font-size:26px;color:#4A3B32;">$100</span>
+            </div>
+            <div style="display:inline-flex;align-items:center;gap:8px;background:#7FE0A8;border:3px solid #fff;border-radius:999px;padding:9px 18px;box-shadow:0 5px 12px rgba(74,59,50,.16);">
+              <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:16px;color:#225c40;">{{ change }}</span>
+              <span style="font-family:'Nunito';font-weight:900;font-size:24px;color:#225c40;">$25</span>
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute;top:378px;left:0;right:0;bottom:0;background:linear-gradient(#F3ECDD,#E8E2D8);border-radius:30px 30px 0 0;padding:18px 22px 22px;box-shadow:0 -8px 22px rgba(74,59,50,.12);">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:18px;color:#4A3B32;">{{ wallet }}</span>
+            <div onClick="{{ goSuccess }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;background:linear-gradient(#FF8468,#FF6F52);color:#fff;border:2.5px solid #fff;border-radius:999px;padding:7px 16px;box-shadow:0 4px 10px rgba(74,59,50,.2);">
+              <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:14px;">{{ takeChange }}</span>
+              <span style="font-family:'Nunito';font-weight:900;font-size:14px;">→</span>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px 14px;">
+            <div style="position:relative;cursor:pointer;"><img src="uploads/$100.png" style="width:100%;height:auto;display:block;filter:drop-shadow(0 4px 8px rgba(74,59,50,.18));"><span style="position:absolute;top:-5px;right:-5px;font-family:'Nunito';font-weight:900;font-size:11px;color:#fff;background:#4A3B32;border:2px solid #fff;border-radius:999px;padding:1px 7px;">×2</span></div>
+            <div style="position:relative;cursor:pointer;"><img src="uploads/$50.png" style="width:100%;height:auto;display:block;filter:drop-shadow(0 4px 8px rgba(74,59,50,.18));"><span style="position:absolute;top:-5px;right:-5px;font-family:'Nunito';font-weight:900;font-size:11px;color:#fff;background:#4A3B32;border:2px solid #fff;border-radius:999px;padding:1px 7px;">×2</span></div>
+            <div style="position:relative;cursor:pointer;"><img src="uploads/$20.png" style="width:100%;height:auto;display:block;filter:drop-shadow(0 4px 8px rgba(74,59,50,.18));"><span style="position:absolute;top:-5px;right:-5px;font-family:'Nunito';font-weight:900;font-size:11px;color:#fff;background:#4A3B32;border:2px solid #fff;border-radius:999px;padding:1px 7px;">×3</span></div>
+            <div style="position:relative;cursor:pointer;"><img src="uploads/$10.png" style="width:100%;height:auto;display:block;filter:drop-shadow(0 4px 8px rgba(74,59,50,.18));"><span style="position:absolute;top:-5px;right:-5px;font-family:'Nunito';font-weight:900;font-size:11px;color:#fff;background:#4A3B32;border:2px solid #fff;border-radius:999px;padding:1px 7px;">×4</span></div>
+          </div>
+          <div style="display:flex;gap:18px;margin-top:14px;justify-content:center;">
+            <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;"><img src="uploads/$5.png" style="width:62px;height:auto;display:block;cursor:pointer;filter:drop-shadow(0 4px 8px rgba(74,59,50,.2));"><span style="font-family:'Nunito';font-weight:800;font-size:11px;color:#9a8a78;">×4</span></div>
+            <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;"><img src="uploads/$2.png" style="width:62px;height:auto;display:block;cursor:pointer;filter:drop-shadow(0 4px 8px rgba(74,59,50,.2));"><span style="font-family:'Nunito';font-weight:800;font-size:11px;color:#9a8a78;">×5</span></div>
+            <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;"><img src="uploads/$1.png" style="width:62px;height:auto;display:block;cursor:pointer;filter:drop-shadow(0 4px 8px rgba(74,59,50,.2));"><span style="font-family:'Nunito';font-weight:800;font-size:11px;color:#9a8a78;">×5</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SCREEN 6 — SUCCESS ===== -->
+    <div style="position:absolute;top:0;left:0;width:390px;height:810px;display:{{ visSuccess }};">
+      <div style="width:390px;height:810px;border-radius:36px;overflow:hidden;position:relative;background:linear-gradient(#BFE3F0 0%,#FFE9C2 55%,#BFE6C5 100%);box-shadow:0 16px 44px rgba(74,59,50,.2);">
+        <div style="position:absolute;top:40px;left:46px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 40% 38%,#FFE9A8,#FFC94D);box-shadow:0 0 44px 14px rgba(255,201,77,.4);"></div>
+        <div style="position:absolute;top:60px;left:40px;width:10px;height:10px;background:#FF6F52;border-radius:2px;animation:twinkle 2.4s ease-in-out infinite;"></div>
+        <div style="position:absolute;top:100px;right:60px;width:9px;height:9px;background:#C9A6E0;border-radius:50%;animation:twinkle 3s ease-in-out infinite;"></div>
+        <div style="position:absolute;top:150px;left:90px;width:8px;height:8px;background:#7FE0A8;transform:rotate(45deg);animation:twinkle 2.7s ease-in-out infinite;"></div>
+        <div style="position:absolute;top:120px;right:120px;width:10px;height:10px;background:#5BB6E0;border-radius:2px;animation:twinkle 3.3s ease-in-out infinite;"></div>
+        <div style="position:absolute;top:70px;left:0;right:0;display:flex;flex-direction:column;align-items:center;">
+          <img src="uploads/Great Job.png" alt="Great Job!" style="width:300px;height:auto;filter:drop-shadow(0 12px 20px rgba(74,59,50,.22));animation:bob 3s ease-in-out infinite;">
+        </div>
+        <div style="position:absolute;top:392px;left:24px;right:24px;background:#fff;border:5px solid #fff;border-radius:24px;padding:18px;box-shadow:0 12px 26px rgba(74,59,50,.18);">
+          <div style="display:flex;gap:8px;justify-content:center;margin-bottom:12px;">
+            <div style="width:46px;height:46px;border-radius:12px;background:#EAF4FA;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/1.2_橙汁.png" style="width:38px;height:38px;object-fit:contain;"></div>
+            <div style="width:46px;height:46px;border-radius:12px;background:#FBF3DE;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/2.1_薯片.png" style="width:38px;height:38px;object-fit:contain;"></div>
+            <div style="width:46px;height:46px;border-radius:12px;background:#F6EEFB;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/3.1_棒棒糖.png" style="width:38px;height:38px;object-fit:contain;"></div>
+            <div style="width:46px;height:46px;border-radius:12px;background:#EAF7FA;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/4.2_雪條.png" style="width:38px;height:38px;object-fit:contain;"></div>
+            <div style="width:46px;height:46px;border-radius:12px;background:#FBEEE6;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="uploads/5.1_熱狗.png" style="width:38px;height:38px;object-fit:contain;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-top:2px dashed #E8E2D8;">
+            <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:700;font-size:15px;color:#8a7c6c;">{{ paid }}</span>
+            <span style="font-family:'Nunito';font-weight:900;font-size:20px;color:#4A3B32;">$100</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:8px 0;border-top:2px dashed #E8E2D8;">
+            <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:700;font-size:15px;color:#8a7c6c;">{{ change }}</span>
+            <span style="font-family:'Nunito';font-weight:900;font-size:20px;color:#3FA56E;">$25</span>
+          </div>
+        </div>
+        <div style="position:absolute;bottom:28px;left:24px;right:24px;display:flex;flex-direction:column;gap:12px;">
+          <div onClick="{{ goHome }}" style="cursor:pointer;animation:bob 2.6s ease-in-out infinite;display:flex;align-items:center;justify-content:center;background:linear-gradient(#FF8468,#FF6F52);color:#fff;border:4px solid #fff;border-radius:24px;padding:16px 0;box-shadow:0 7px 0 #E2512F,0 14px 20px rgba(74,59,50,.24);">
+            <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:22px;letter-spacing:2px;">{{ playAgain }}</span>
+          </div>
+          <div onClick="{{ goHome }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;border:3px solid #c9bda8;border-radius:22px;padding:12px 0;">
+            <span style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:18px;color:#6f6256;">{{ backHome }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SCREEN 7 — PARENT DASHBOARD ===== -->
+    <div style="position:absolute;top:0;left:0;width:390px;height:810px;display:{{ visParent }};">
+      <div style="width:390px;height:810px;border-radius:36px;overflow:hidden;position:relative;background:#F5F2EC;box-shadow:0 16px 44px rgba(74,59,50,.2);">
+        <div style="position:absolute;top:0;left:0;right:0;padding:24px 24px 18px;background:#fff;border-bottom:1px solid #ECE7DE;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div onClick="{{ goHome }}" style="cursor:pointer;width:38px;height:38px;border-radius:12px;background:#F0EDE6;display:flex;align-items:center;justify-content:center;">
+                <div style="width:11px;height:11px;border-left:3px solid #6f6256;border-bottom:3px solid #6f6256;transform:rotate(45deg);margin-left:3px;"></div>
+              </div>
+              <div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:900;font-size:22px;color:#4A3B32;">{{ parentTitle }}</div>
+            </div>
+            
+          </div>
+        </div>
+        <div style="position:absolute;top:112px;left:24px;right:24px;background:#fff;border:1px solid #ECE7DE;border-radius:16px;padding:16px;">
+          <div style="font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:800;font-size:11px;letter-spacing:1px;color:#a89a87;margin-bottom:10px;">{{ latestSession }}</div>
+          <div style="display:flex;justify-content:space-between;">
+            <div><div style="font-family:'Nunito';font-weight:800;font-size:13px;color:#4A3B32;">Jun 18</div><div style="font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:700;font-size:11px;color:#9a8a78;">{{ pDate }}</div></div>
+            <div><div style="font-family:'Nunito';font-weight:800;font-size:13px;color:#4A3B32;">6 min</div><div style="font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:700;font-size:11px;color:#9a8a78;">{{ pDuration }}</div></div>
+            <div><div style="font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:800;font-size:13px;color:#4A3B32;">{{ levelIntermediate }}</div><div style="font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:700;font-size:11px;color:#9a8a78;">{{ pLevel }}</div></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:236px;left:24px;right:24px;display:flex;gap:12px;">
+          <div style="flex:1;background:#fff;border:1px solid #ECE7DE;border-radius:16px;padding:16px;text-align:center;">
+            <div style="font-family:'Nunito';font-weight:900;font-size:34px;color:#3FA56E;line-height:1;">92<span style="font-size:18px;">%</span></div>
+            <div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:700;font-size:13px;color:#6f6256;margin-top:6px;">{{ calcAccuracy }}</div>
+          </div>
+          <div style="flex:1;background:#fff;border:1px solid #ECE7DE;border-radius:16px;padding:16px;text-align:center;">
+            <div style="font-family:'Nunito';font-weight:900;font-size:34px;color:#E0992F;line-height:1;">78<span style="font-size:18px;">%</span></div>
+            <div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:700;font-size:13px;color:#6f6256;margin-top:6px;">{{ payAccuracy }}</div>
+          </div>
+        </div>
+        <div style="position:absolute;top:372px;left:24px;right:24px;background:#fff;border:1px solid #ECE7DE;border-radius:16px;padding:16px;">
+          <div style="font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:800;font-size:11px;letter-spacing:1px;color:#a89a87;margin-bottom:14px;">{{ confusedDenoms }}</div>
+          <div style="display:flex;flex-direction:column;gap:11px;">
+            <div style="display:flex;align-items:center;gap:10px;"><span style="width:42px;font-family:'Nunito';font-weight:900;font-size:13px;color:#4A3B32;">$50</span><div style="flex:1;height:10px;border-radius:999px;background:#F0EDE6;overflow:hidden;"><div style="width:80%;height:100%;background:#FF8A52;border-radius:999px;"></div></div><span style="font-family:'Nunito';font-weight:800;font-size:11px;color:#9a8a78;">8×</span></div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="width:42px;font-family:'Nunito';font-weight:900;font-size:13px;color:#4A3B32;">$5</span><div style="flex:1;height:10px;border-radius:999px;background:#F0EDE6;overflow:hidden;"><div style="width:55%;height:100%;background:#FFC94D;border-radius:999px;"></div></div><span style="font-family:'Nunito';font-weight:800;font-size:11px;color:#9a8a78;">5×</span></div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="width:42px;font-family:'Nunito';font-weight:900;font-size:13px;color:#4A3B32;">$1</span><div style="flex:1;height:10px;border-radius:999px;background:#F0EDE6;overflow:hidden;"><div style="width:30%;height:100%;background:#C9A6E0;border-radius:999px;"></div></div><span style="font-family:'Nunito';font-weight:800;font-size:11px;color:#9a8a78;">3×</span></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:556px;left:24px;right:24px;background:#fff;border:1px solid #ECE7DE;border-radius:16px;padding:16px;">
+          <div style="font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:800;font-size:11px;letter-spacing:1px;color:#a89a87;margin-bottom:14px;">{{ stampHistory }}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:26px;height:26px;border-radius:50%;background:#3FA56E;"></div><span style="font-family:'Nunito';font-weight:700;font-size:10px;color:#9a8a78;">W1</span></div>
+            <div style="flex:1;height:3px;background:#E5E0D6;"></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:26px;height:26px;border-radius:50%;background:#3FA56E;"></div><span style="font-family:'Nunito';font-weight:700;font-size:10px;color:#9a8a78;">W2</span></div>
+            <div style="flex:1;height:3px;background:#E5E0D6;"></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:26px;height:26px;border-radius:50%;background:#7FE0A8;"></div><span style="font-family:'Nunito';font-weight:700;font-size:10px;color:#9a8a78;">W3</span></div>
+            <div style="flex:1;height:3px;background:#E5E0D6;"></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:5px;"><div style="width:26px;height:26px;border-radius:50%;background:#EFEAE0;border:2px dashed #cfc6b4;"></div><span style="font-family:'Nunito';font-weight:700;font-size:10px;color:#9a8a78;">W4</span></div>
+          </div>
+        </div>
+        <div style="position:absolute;bottom:28px;left:24px;right:24px;background:#fff;border:1px solid #ECE7DE;border-radius:16px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;">
+          <div><div style="font-family:'Noto Sans TC','Noto Sans SC';font-weight:800;font-size:14px;color:#4A3B32;">{{ digestTitle }}</div><div style="font-family:'Noto Sans TC','Noto Sans SC','Nunito';font-weight:700;font-size:11px;color:#9a8a78;">{{ digestSub }}</div></div>
+          <div style="width:52px;height:30px;border-radius:999px;background:#3FA56E;position:relative;"><div style="position:absolute;top:3px;right:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.2);"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:620,&quot;height&quot;:1000},&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;zhHant&quot;,&quot;zhHans&quot;,&quot;en&quot;],&quot;default&quot;:&quot;zhHant&quot;,&quot;tsType&quot;:&quot;'zhHant'|'zhHans'|'en'&quot;}}">
+const STR = {
+  zhHant: {
+    langName: 'EN / 中',
+    navHome: '首頁', navMission: '任務', navStore: '逛店', navCheckout: '結帳', navPay: '付款', navDone: '完成', navParent: '家長',
+    homeGreeting: '嗨，準備好了嗎？', startShopping: '開始購物', settings: 'EN / 中', parentShort: '家長', chooseLang: '選擇語言',
+    missionLabel: '任務', missionTitle: '幫我買這幾樣！', shoppingList: '購物清單', missionCount: '5 樣', go: '出發購物',
+    listToBuy: '要買清單', checkout: '去結帳',
+    cartTitle: '一起算算看！', total: '總共', confirmAmount: '確認金額',
+    amountDue: '應付金額', trayLabel: '付款盤', paidIn: '已放入', change: '找零', wallet: '錢包', takeChange: '收下找零', unit: '× 1',
+    paid: '付款', playAgain: '再買一次', backHome: '回首頁',
+    zDrinks: '飲料區', zSnacks: '零食區', zCandy: '糖果區', zFrozen: '冷凍區', zHot: '熱食區',
+    catDrink: '冷飲', catSnack: '零食', catCandy: '糖果', catFrozen: '冷凍', catHot: '熱食',
+    itOrange: '橙汁', itChips: '薯片', itLolli: '棒棒糖', itIcepop: '雪條', itHotdog: '熱狗',
+    pWater: '礦泉水', pOrange: '橙汁', pMilk: '牛奶', pJuiceBox: '果汁盒',
+    pChips: '薯片', pBiscuit: '餅乾', pPopcorn: '爆米花', pPretzel: '百力滋',
+    pLolli: '棒棒糖', pFruitCandy: '水果糖', pGummy: '軟糖', pChoco: '巧克力',
+    pIceCup: '雪糕杯', pIcepop: '雪條', pFrozenPizza: '冷凍薄餅', pFrozenDim: '冷凍點心',
+    pHotdog: '熱狗', pBun: '包點', pOden: '關東煮', pNuggets: '炸雞塊',
+    parentTitle: '家長中心', pinProtected: '已用密碼保護', latestSession: '上次遊戲',
+    pDate: '日期', pDuration: '時長', pLevel: '難度', levelIntermediate: '中級',
+    calcAccuracy: '計算正確率', payAccuracy: '付款正確率', confusedDenoms: '易混淆面額', stampHistory: '集點進度',
+    digestTitle: '課後摘要通知', digestSub: '電郵摘要',
+  },
+  zhHans: {
+    langName: 'EN / 中',
+    navHome: '首页', navMission: '任务', navStore: '逛店', navCheckout: '结账', navPay: '付款', navDone: '完成', navParent: '家长',
+    homeGreeting: '嗨，准备好了吗？', startShopping: '开始购物', settings: 'EN / 中', parentShort: '家长', chooseLang: '选择语言',
+    missionLabel: '任务', missionTitle: '帮我买这几样！', shoppingList: '购物清单', missionCount: '5 样', go: '出发购物',
+    listToBuy: '要买清单', checkout: '去结账',
+    cartTitle: '一起算算看！', total: '总共', confirmAmount: '确认金额',
+    amountDue: '应付金额', trayLabel: '付款盘', paidIn: '已放入', change: '找零', wallet: '钱包', takeChange: '收下找零', unit: '× 1',
+    paid: '付款', playAgain: '再买一次', backHome: '回首页',
+    zDrinks: '饮料区', zSnacks: '零食区', zCandy: '糖果区', zFrozen: '冷冻区', zHot: '热食区',
+    catDrink: '冷饮', catSnack: '零食', catCandy: '糖果', catFrozen: '冷冻', catHot: '热食',
+    itOrange: '橙汁', itChips: '薯片', itLolli: '棒棒糖', itIcepop: '雪条', itHotdog: '热狗',
+    pWater: '矿泉水', pOrange: '橙汁', pMilk: '牛奶', pJuiceBox: '果汁盒',
+    pChips: '薯片', pBiscuit: '饼干', pPopcorn: '爆米花', pPretzel: '百力滋',
+    pLolli: '棒棒糖', pFruitCandy: '水果糖', pGummy: '软糖', pChoco: '巧克力',
+    pIceCup: '雪糕杯', pIcepop: '雪条', pFrozenPizza: '冷冻薄饼', pFrozenDim: '冷冻点心',
+    pHotdog: '热狗', pBun: '包点', pOden: '关东煮', pNuggets: '炸鸡块',
+    parentTitle: '家长中心', pinProtected: '已用密码保护', latestSession: '上次游戏',
+    pDate: '日期', pDuration: '时长', pLevel: '难度', levelIntermediate: '中级',
+    calcAccuracy: '计算正确率', payAccuracy: '付款正确率', confusedDenoms: '易混淆面额', stampHistory: '集点进度',
+    digestTitle: '课后摘要通知', digestSub: '电邮摘要',
+  },
+  en: {
+    langName: 'EN / 中',
+    navHome: 'Home', navMission: 'Mission', navStore: 'Store', navCheckout: 'Checkout', navPay: 'Pay', navDone: 'Done', navParent: 'Parent',
+    homeGreeting: 'Hi! Ready to go shopping?', startShopping: 'Start Shopping', settings: 'EN / 中', parentShort: 'Parent', chooseLang: 'Choose Language',
+    missionLabel: 'Mission', missionTitle: 'Help me buy these!', shoppingList: 'Shopping List', missionCount: '5 items', go: "Let's Go!",
+    listToBuy: 'To Buy', checkout: 'Checkout',
+    cartTitle: "Let's add it up!", total: 'Total', confirmAmount: 'Confirm Amount',
+    amountDue: 'Amount Due', trayLabel: 'PAYMENT TRAY', paidIn: 'Paid In', change: 'Change', wallet: 'Wallet', takeChange: 'Take Change', unit: '× 1',
+    paid: 'Paid', playAgain: 'Play Again', backHome: 'Home',
+    zDrinks: 'Drinks', zSnacks: 'Snacks', zCandy: 'Candy', zFrozen: 'Frozen', zHot: 'Hot Food',
+    catDrink: 'Drink', catSnack: 'Snack', catCandy: 'Candy', catFrozen: 'Frozen', catHot: 'Hot Food',
+    itOrange: 'Orange Juice', itChips: 'Potato Chips', itLolli: 'Lollipop', itIcepop: 'Ice Pop', itHotdog: 'Hot Dog',
+    pWater: 'Water', pOrange: 'Orange Juice', pMilk: 'Milk', pJuiceBox: 'Juice Box',
+    pChips: 'Potato Chips', pBiscuit: 'Biscuits', pPopcorn: 'Popcorn', pPretzel: 'Pretzels',
+    pLolli: 'Lollipop', pFruitCandy: 'Fruit Candy', pGummy: 'Gummies', pChoco: 'Chocolate',
+    pIceCup: 'Ice Cream Cup', pIcepop: 'Ice Pop', pFrozenPizza: 'Frozen Pizza', pFrozenDim: 'Frozen Dim Sum',
+    pHotdog: 'Hot Dog', pBun: 'Steamed Bun', pOden: 'Oden', pNuggets: 'Chicken Nuggets',
+    parentTitle: 'Parent Dashboard', pinProtected: 'PIN protected', latestSession: 'Latest Session',
+    pDate: 'Date', pDuration: 'Duration', pLevel: 'Level', levelIntermediate: 'Intermediate',
+    calcAccuracy: 'Calculation Accuracy', payAccuracy: 'Payment Accuracy', confusedDenoms: 'Most-confused Denominations', stampHistory: 'Stamp-card History',
+    digestTitle: 'Post-session Digest', digestSub: 'Email digest',
+  },
+};
+
+class Component extends DCLogic {
+  state = { current: 'home', lang: null, langOpen: false, charIdx: 0 };
+  phoneRef = React.createRef();
+  fit = () => {
+    const el = this.phoneRef.current;
+    if (!el) return;
+    const s = Math.min((window.innerWidth - 32) / 390, (window.innerHeight - 32) / 810, 1.5);
+    el.style.transform = 'scale(' + s + ')';
+  };
+  componentDidMount() { this.fit(); window.addEventListener('resize', this.fit); }
+  componentWillUnmount() { window.removeEventListener('resize', this.fit); }
+  go(s) { this.setState({ current: s, langOpen: false }); }
+  cycleChar(d) { this.setState(st => ({ charIdx: (st.charIdx + d + 2) % 2 })); }
+  setLang(l) { this.setState({ lang: l, langOpen: false }); }
+  renderVals() {
+    const lang = this.state.lang || this.props.defaultLang || 'zhHant';
+    const T = STR[lang] || STR.zhHant;
+    const cur = this.state.current;
+    const vis = (c) => c ? 'block' : 'none';
+    const screens = ['home', 'mission', 'nav', 'cart', 'payment', 'success', 'parent'];
+    const chip = {};
+    screens.forEach((s) => {
+      chip['cbg_' + s] = (cur === s) ? '#FF6F52' : '#fff';
+      chip['cfg_' + s] = (cur === s) ? '#fff' : '#6f6256';
+    });
+    const opt = (l) => ({
+      bg: lang === l ? '#FFF1EC' : '#fff',
+      border: lang === l ? '#FF6F52' : '#E8E2D8',
+      dot: lang === l ? '#FF6F52' : '#E8E2D8',
+      check: lang === l ? 'block' : 'none',
+    });
+    const oH = opt('zhHant'), oS = opt('zhHans'), oE = opt('en');
+    const charFile = ['uploads/Character_1.png', 'uploads/Character_2.png'][this.state.charIdx];
+    return {
+      phoneRef: this.phoneRef,
+      charImg: charFile,
+      charBgImg: `url('${charFile}')`,
+      prevChar: () => this.cycleChar(-1),
+      nextChar: () => this.cycleChar(1),
+      dot0: this.state.charIdx === 0 ? '#FF6F52' : '#E8D9CE',
+      dot1: this.state.charIdx === 1 ? '#FF6F52' : '#E8D9CE',
+      ...T,
+      ...chip,
+      goHome: () => this.go('home'),
+      goMission: () => this.go('mission'),
+      goNav: () => this.go('nav'),
+      goCart: () => this.go('cart'),
+      goPay: () => this.go('payment'),
+      goSuccess: () => this.go('success'),
+      goParent: () => this.go('parent'),
+      openLang: () => this.setState({ langOpen: true }),
+      closeLang: () => this.setState({ langOpen: false }),
+      setLangZhHant: () => this.setLang('zhHant'),
+      setLangZhHans: () => this.setLang('zhHans'),
+      setLangEn: () => this.setLang('en'),
+      langOpenDisp: this.state.langOpen ? 'flex' : 'none',
+      optHantBg: oH.bg, optHantBorder: oH.border, optHantDot: oH.dot, optHantCheck: oH.check,
+      optHansBg: oS.bg, optHansBorder: oS.border, optHansDot: oS.dot, optHansCheck: oS.check,
+      optEnBg: oE.bg, optEnBorder: oE.border, optEnDot: oE.dot, optEnCheck: oE.check,
+      visHomeB: vis(cur === 'home'),
+      visMission: vis(cur === 'mission'),
+      visNav: vis(cur === 'nav'),
+      visCart: vis(cur === 'cart'),
+      visPay: vis(cur === 'payment'),
+      visSuccess: vis(cur === 'success'),
+      visParent: vis(cur === 'parent'),
+    };
+  }
+}
+</script>
+</body>
+</html>
