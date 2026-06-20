@@ -95,6 +95,31 @@ const EXTRA_CSS = `
 // ── App ───────────────────────────────────────────────────────────────────────
 export default function App() {
   const phoneRef = useRef(null);
+  const sfxRef   = useRef({});
+
+  // Load audio files once after mount
+  useEffect(() => {
+    const p = `${BASE}sfx/`;
+    sfxRef.current = {
+      calcButton: new Audio(p + 'SFX_Calculator_Button.mp3'),
+      confirm:    new Audio(p + 'SFX_Confirm.mp3'),
+      completion: new Audio(p + 'SFX_Game_Completion.mp3'),
+      gameStart:  new Audio(p + 'SFX_Game_Start.mp3'),
+      remove:     new Audio(p + 'SFX_Remove.mp3'),
+    };
+  }, []);
+
+  const play = name => {
+    try {
+      const a = sfxRef.current[name];
+      if (a) { a.currentTime = 0; a.play().catch(() => {}); }
+    } catch (_) {}
+  };
+
+  // Play completion fanfare whenever success screen appears
+  useEffect(() => {
+    if (screen === 'success') play('completion');
+  }, [screen]);
 
   useEffect(() => {
     const el = document.createElement('style');
@@ -163,6 +188,7 @@ export default function App() {
 
   // ── Start / restart a round
   const startGame = () => {
+    play('gameStart');
     const shuffled = [...items].sort(() => Math.random() - 0.5);
     const cnt = 3 + Math.floor(Math.random() * 3); // 3, 4, or 5
     setMissionItems(shuffled.slice(0, cnt));
@@ -178,18 +204,17 @@ export default function App() {
 
   // ── Store item toggle
   const toggleItem = item => {
-    beep('click');
+    const removing = selectedItems.some(i => i.id === item.id);
+    play(removing ? 'remove' : 'calcButton');
     setSelectedItems(prev =>
-      prev.some(i => i.id === item.id)
-        ? prev.filter(i => i.id !== item.id)
-        : [...prev, item]
+      removing ? prev.filter(i => i.id !== item.id) : [...prev, item]
     );
   };
 
   // ── Calculator
   const handleCalc = key => {
     if (calcGlow || calcShake) return;
-    beep('click');
+    play('calcButton');
 
     if (key === 'C') {
       setCalcDisp('0'); setCalcPrev(null); setCalcOp(null); setCalcFresh(false);
@@ -209,7 +234,7 @@ export default function App() {
       setCalcTries(n => n + 1);
 
       if (rounded === correctTotal) {
-        beep('success');
+        play('confirm');
         setCalcGlow(true);
         setAmountDue(correctTotal);
         setTimeout(() => {
@@ -254,14 +279,14 @@ export default function App() {
   // ── Payment: tap a bill/coin from wallet into tray
   const tapDenom = denom => {
     if ((wallet[denom] || 0) <= 0 || payDone) return;
-    beep('coin');
+    play('calcButton');
     const nw = { ...wallet, [denom]: wallet[denom] - 1 };
     const nt = { ...tray,   [denom]: tray[denom]   + 1 };
     setWallet(nw); setTray(nt);
     const total = DENOMS.reduce((s, d) => s + d * nt[d], 0);
     if (total === amountDue) {
       setPayDone(true);
-      beep('success');
+      play('confirm');
       setTimeout(() => { recordSession(total, 0); go('success'); }, 1400);
     }
   };
@@ -269,7 +294,7 @@ export default function App() {
   // ── Payment: return a bill/coin from tray to wallet
   const untapDenom = denom => {
     if ((tray[denom] || 0) <= 0 || payDone) return;
-    beep('click');
+    play('remove');
     setTray(t  => ({ ...t,  [denom]: t[denom]  - 1 }));
     setWallet(w => ({ ...w, [denom]: w[denom]  + 1 }));
     setPayMistakes(n => n + 1);
@@ -278,7 +303,7 @@ export default function App() {
 
   // ── Payment: overpay → take change
   const takeChange = () => {
-    beep('success');
+    play('confirm');
     setPayDone(true);
     recordSession(payTotal, change);
     go('success');
@@ -435,7 +460,7 @@ export default function App() {
                   </div>
                 ))}
               </div>
-              <div onClick={() => go('nav')} style={{cursor:'pointer',marginTop:22,animation:'bob 2.6s ease-in-out infinite',display:'flex',alignItems:'center',justifyContent:'center',background:'linear-gradient(#FF8468,#FF6F52)',color:'#fff',border:'4px solid #fff',borderRadius:26,padding:'18px 0',boxShadow:'0 8px 0 #E2512F,0 15px 22px rgba(74,59,50,.24)'}}>
+              <div onClick={() => { play('confirm'); go('nav'); }} style={{cursor:'pointer',marginTop:22,animation:'bob 2.6s ease-in-out infinite',display:'flex',alignItems:'center',justifyContent:'center',background:'linear-gradient(#FF8468,#FF6F52)',color:'#fff',border:'4px solid #fff',borderRadius:26,padding:'18px 0',boxShadow:'0 8px 0 #E2512F,0 15px 22px rgba(74,59,50,.24)'}}>
                 <span style={{fontFamily:"'Noto Sans TC','Noto Sans SC'",fontWeight:900,fontSize:24,letterSpacing:2}}>{T.go}</span>
               </div>
             </div>
@@ -530,7 +555,7 @@ export default function App() {
                 <div style={{width:14,height:14,borderLeft:'4px solid #FF6F52',borderBottom:'4px solid #FF6F52',transform:'rotate(45deg)',marginLeft:4}}/>
               </div>
               <div
-                onClick={() => missionDone && go('cart')}
+                onClick={() => { if (missionDone) { play('confirm'); go('cart'); } }}
                 style={{
                   cursor: missionDone ? 'pointer' : 'default',
                   display:'flex',alignItems:'center',justifyContent:'center',
@@ -600,9 +625,9 @@ export default function App() {
                 <Key label="4"/><Key label="5"/><Key label="6"/>
                 <Key label="−" bg="#C9A6E0" fg="#fff"    sh="#9F73C0"/>
                 <Key label="1"/><Key label="2"/><Key label="3"/>
-                <Key label="×" bg="#C9A6E0" fg="#fff"    sh="#9F73C0"/>
-                <Key label="+" bg="#FF8A52" fg="#fff"    sh="#D4632A"/>
+                <Key label="+" bg="#C9A6E0" fg="#fff"    sh="#9F73C0"/>
                 <Key label="0" span={2}/>
+                <Key label="."/>
                 <Key label="=" bg="#7FE0A8" fg="#225c40" sh="#3FA56E"/>
               </div>
             </div>
