@@ -1,0 +1,1 @@
+*,:before,:after{box-sizing:border-box}html,body,#root{width:100%;height:100%;margin:0;padding:0;overflow:hidden}@keyframes bob{0%,to{transform:translateY(0)}50%{transform:translateY(-7px)}}@keyframes twinkle{0%,to{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}@keyframes glowpulse{0%,to{box-shadow:0 0 #7fe0a800}50%{box-shadow:0 0 0 9px #7fe0a866}}
